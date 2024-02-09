@@ -1,21 +1,24 @@
 <script>
-import { store } from '../data/store'
+import { store } from '../data/store';
+import ProductionCard from './ProductionCard.vue';
+
 export default {
     name: 'ProductionSection',
-    data: () => ({ store })
-}
+    data: () => ({ store }),
+    components: { ProductionCard },
+    props: {
+        collection: String
+    }
+};
 </script>
 
 <template>
     <section class="container p-5 text-white">
-        <h2>Movies</h2>
-        <ul v-for="movie in store.movies" :key="movie.id" class="list-unstyled">
-            <li>{{ movie.title }}</li>
-            <li>{{ movie.original_title }}</li>
-            <li>{{ movie.original_language }}</li>
-            <li>{{ movie.vote_average }}</li>
-        </ul>
+        <h2>{{ collection === 'movies' ? 'Movies' : 'TV Series' }}</h2>
+        <div class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg-4 align-items-center">
+            <div class="col" v-for="production in store[collection]" :key="production.id">
+                <ProductionCard :production="production" />
+            </div>
+        </div>
     </section>
 </template>
-
-<style></style>

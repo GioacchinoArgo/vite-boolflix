@@ -2,12 +2,13 @@
 import ProductionSection from './ProductionSection.vue'
 export default {
     name: 'AppMain',
-    components: { ProductionSection },
+    components: { ProductionSection }
 }
 </script>
 
 <template>
-    <ProductionSection />
+    <ProductionSection collection="movies" />
+    <ProductionSection collection="series" />
 </template>
 
 <style></style>

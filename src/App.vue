@@ -9,12 +9,16 @@ export default {
   components: { AppHeader, AppMain },
   data: () => ({ store }),
   methods: {
-    searchMovies(filter) {
+    fetchProduction(filter) {
       if (!filter) {
         store.movies = [];
+        store.series = [];
         return;
       }
-
+      this.fetchApi("search/movie", 'movies', filter);
+      this.fetchApi("search/tv", 'series', filter);
+    },
+    fetchApi(endpoint, collection, filter) {
       const { baseUri, language, apiKey } = api;
 
       const params = {
@@ -22,10 +26,9 @@ export default {
         api_key: apiKey,
         language
       }
-
-      axios.get(`${baseUri}/search/movie`, { params })
+      axios.get(`${baseUri}/${endpoint}`, { params })
         .then((res) => {
-          store.movies = res.data.results;
+          store[collection] = res.data.results;
         })
         .catch((err) => {
           console.error(err)
@@ -36,7 +39,7 @@ export default {
 </script>
 
 <template>
-  <AppHeader @search-term="searchMovies" />
+  <AppHeader @search-term="fetchProduction" />
   <AppMain />
 </template>
 
