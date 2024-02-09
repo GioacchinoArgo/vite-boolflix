@@ -4,4 +4,9 @@ const api = {
     language: 'it-It'
 }
 
-export { api }
+const pics = {
+    baseUri: 'https://image.tmdb.org/t/p/w342',
+    placeholder: 'https://www.altavod.com/assets/images/poster-placeholder.png'
+}
+
+export { api, pics }
